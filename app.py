@@ -8,6 +8,12 @@ import customtkinter as ctk
 from main import organize
 
 
+def resource_path(relative_path: str) -> str:
+    if hasattr(sys, "_MEIPASS"):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
+
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -15,9 +21,10 @@ class App(ctk.CTk):
         self.title("Yeet Organizer")
         self.set_window_center(450, 220)
         self.resizable(False, False)
+
         ctk.set_appearance_mode("light")
 
-        self.after(201, lambda: self.set_app_icon())
+        self.after(201, self.set_app_icon)
 
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=1)
@@ -60,7 +67,6 @@ class App(ctk.CTk):
             ],
         )
         self.selection.grid(row=1, column=1, padx=(5, 15), pady=(0, 20), sticky="w")
-
         self.confirm_button = ctk.CTkButton(
             self, text="Yeet", command=self.open_dialogbox
         )
@@ -98,19 +104,23 @@ class App(ctk.CTk):
     def set_window_center(self, width, height):
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
+
         x = (screen_width - width) // 2
         y = (screen_height - height) // 2
+
         self.geometry(f"{width}x{height}+{x}+{y}")
 
     def set_app_icon(self):
         if sys.platform.startswith("win"):
-            self.iconbitmap(os.path.join(os.getcwd(), "assets", "icon.ico"))
+            icon_path = resource_path("assets/icon.ico")
+            if os.path.exists(icon_path):
+                self.iconbitmap(icon_path)
         else:
-            icon_img = tkinter.PhotoImage(
-                file=os.path.join(os.getcwd(), "assets", "icon.png")
-            )
-            self.iconphoto(True, icon_img)
-            self.icon_img = icon_img
+            icon_path = resource_path("assets/icon.png")
+            if os.path.exists(icon_path):
+                icon_img = tkinter.PhotoImage(file=icon_path)
+                self.iconphoto(True, icon_img)
+                self.icon_img = icon_img
 
 
 if __name__ == "__main__":
