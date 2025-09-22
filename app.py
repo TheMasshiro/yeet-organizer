@@ -21,7 +21,7 @@ class App(customtkinter.CTk):
         path_selected = filedialog.askdirectory()
 
         if path_selected:
-            self.path_entry.configure(state="enabled")
+            self.path_entry.configure(state="normal")
             self.path_entry.delete(0, "end")
             self.path_entry.insert(0, path_selected)
             self.path_entry.configure(state="disabled")
