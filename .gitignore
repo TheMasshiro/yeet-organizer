@@ -58,3 +58,4 @@ env/
 example/
 
 app.spec
+*.identifier

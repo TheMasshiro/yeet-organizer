@@ -1,4 +1,5 @@
 import os
+import sys
 import tkinter
 from tkinter import filedialog, messagebox
 
@@ -16,15 +17,7 @@ class App(ctk.CTk):
         self.resizable(False, False)
         ctk.set_appearance_mode("light")
 
-        self.after(
-            201,
-            lambda: self.iconphoto(
-                True,
-                tkinter.PhotoImage(
-                    file=os.path.join(os.getcwd(), "assets", "icon.png")
-                ),
-            ),
-        )
+        self.after(201, lambda: self.set_app_icon())
 
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=1)
@@ -108,6 +101,16 @@ class App(ctk.CTk):
         x = (screen_width - width) // 2
         y = (screen_height - height) // 2
         self.geometry(f"{width}x{height}+{x}+{y}")
+
+    def set_app_icon(self):
+        if sys.platform.startswith("win"):
+            self.iconbitmap(os.path.join(os.getcwd(), "assets", "icon.ico"))
+        else:
+            icon_img = tkinter.PhotoImage(
+                file=os.path.join(os.getcwd(), "assets", "icon.png")
+            )
+            self.iconphoto(True, icon_img)
+            self.icon_img = icon_img
 
 
 if __name__ == "__main__":
