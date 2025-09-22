@@ -7,15 +7,46 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
         self.set_window_center()
+        self.resizable(False, False)
         self.title("Yeet Organizer")
-
-        self.path_entry = customtkinter.CTkEntry(self, state="disabled")
-        self.path_entry.pack(padx=20, pady=20)
 
         self.path_button = customtkinter.CTkButton(
             self, text="Select folder", command=self.select_path
         )
-        self.path_button.pack(padx=20, pady=20)
+        self.path_button.grid(row=0, column=0, padx=(10, 2), pady=20)
+        self.path_entry = customtkinter.CTkEntry(self, state="disabled", width=300)
+        self.path_entry.grid(row=0, column=1, padx=(3, 20), pady=20, sticky="ew")
+
+        self.select_label = customtkinter.CTkLabel(self, text="Select a filetype")
+        self.select_label.grid(row=1, column=0, padx=(3, 10), pady=20)
+
+        self.selection = customtkinter.CTkOptionMenu(
+            self,
+            values=[
+                "all",
+                "archives",
+                "backups",
+                "code",
+                "configs",
+                "databases",
+                "documents",
+                "ebooks",
+                "executables",
+                "fonts",
+                "images",
+                "installers",
+                "music",
+                "powerpoints",
+                "publishers",
+                "spreadsheets",
+                "subtitles",
+                "system files",
+                "text files",
+                "videos",
+                "3d models",
+            ],
+        )
+        self.selection.grid(row=1, column=1, padx=(10, 2), pady=20, sticky="w")
 
     def select_path(self):
         path_selected = filedialog.askdirectory()
