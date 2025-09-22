@@ -1,6 +1,5 @@
 import os
 import shutil
-import sys
 
 
 def add_subfolder():
@@ -68,54 +67,3 @@ def organize(path, yeet_type):
                 if filename.lower().endswith(value):
                     process(path, key, filename)
                     break
-
-
-if __name__ == "__main__":
-    yeet_types = [
-        "all",
-        "archives",
-        "backups",
-        "code",
-        "configs",
-        "databases",
-        "documents",
-        "ebooks",
-        "executables",
-        "fonts",
-        "images",
-        "installers",
-        "music",
-        "powerpoints",
-        "publishers",
-        "spreadsheets",
-        "subtitles",
-        "system files",
-        "text files",
-        "videos",
-        "3d models",
-    ]
-
-    if len(sys.argv) < 4:
-        print("Usage: yeet <path> <type>")
-        print(f"Available types: {', '.join(yeet_types)}")
-        sys.exit(1)
-
-    cmd = sys.argv[1]
-    if cmd.lower() != "yeet":
-        print("Error: first argument must be 'yeet'")
-        print("Usage: yeet <path> <type>")
-        sys.exit(1)
-
-    path = sys.argv[2]
-    if not os.path.exists(path) and os.path.isdir(path):
-        print(f"Error: '{path}' is not a valid directory")
-        print("Usage: yeet <path> <type>")
-        sys.exit(1)
-
-    yeet_type = " ".join(sys.argv[3:]).lower()
-    if yeet_type not in yeet_types:
-        print(f"Error: invalid type '{yeet_type}'")
-        print(f"Available types: {', '.join(yeet_types)}")
-        sys.exit(1)
-    organize(path, yeet_type)
-    sys.exit(0)

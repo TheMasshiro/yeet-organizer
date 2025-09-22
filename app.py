@@ -1,26 +1,33 @@
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
-import customtkinter
+import customtkinter as ctk
+
+from main import organize
 
 
-class App(customtkinter.CTk):
+class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.set_window_center()
-        self.resizable(False, False)
-        self.title("Yeet Organizer")
 
-        self.path_button = customtkinter.CTkButton(
+        self.title("Yeet Organizer")
+        self.set_window_center(450, 220)
+        self.resizable(False, False)
+
+        self.grid_columnconfigure(0, weight=0)
+        self.grid_columnconfigure(1, weight=1)
+
+        self.path_button = ctk.CTkButton(
             self, text="Select folder", command=self.select_path
         )
-        self.path_button.grid(row=0, column=0, padx=(10, 2), pady=20)
-        self.path_entry = customtkinter.CTkEntry(self, state="disabled", width=300)
-        self.path_entry.grid(row=0, column=1, padx=(3, 20), pady=20, sticky="ew")
+        self.path_button.grid(row=0, column=0, padx=(15, 5), pady=20, sticky="w")
 
-        self.select_label = customtkinter.CTkLabel(self, text="Select a filetype")
-        self.select_label.grid(row=1, column=0, padx=(3, 10), pady=20)
+        self.path_entry = ctk.CTkEntry(self, state="disabled")
+        self.path_entry.grid(row=0, column=1, padx=(5, 15), pady=20, sticky="ew")
 
-        self.selection = customtkinter.CTkOptionMenu(
+        self.select_label = ctk.CTkLabel(self, text="Select a filetype:")
+        self.select_label.grid(row=1, column=0, padx=(15, 5), pady=(0, 20), sticky="w")
+
+        self.selection = ctk.CTkOptionMenu(
             self,
             values=[
                 "all",
@@ -46,28 +53,52 @@ class App(customtkinter.CTk):
                 "3d models",
             ],
         )
-        self.selection.grid(row=1, column=1, padx=(10, 2), pady=20, sticky="w")
+        self.selection.grid(row=1, column=1, padx=(5, 15), pady=(0, 20), sticky="w")
+
+        self.confirm_button = ctk.CTkButton(
+            self, text="Yeet", command=self.open_dialogbox
+        )
+        self.confirm_button.grid(row=2, column=1, padx=(5, 15), pady=40, sticky="w")
+
+    def open_dialogbox(self):
+        folder = self.path_entry.get()
+        filetype = self.selection.get()
+
+        if not folder:
+            messagebox.showwarning("Missing Folder", "Please select a folder first.")
+            return
+
+        confirm = messagebox.askyesno(
+            "Confirm Action",
+            f"Organize the folder:\n{folder}\n\nWith filetype filter: {filetype}?\n\nContinue?",
+        )
+
+        if confirm:
+            organize(folder, filetype)
+            messagebox.showinfo(
+                "Success", "Your files have been organized successfully!"
+            )
+        else:
+            messagebox.showwarning("Cancelled", "Process was cancelled.")
 
     def select_path(self):
         path_selected = filedialog.askdirectory()
-
         if path_selected:
             self.path_entry.configure(state="normal")
             self.path_entry.delete(0, "end")
             self.path_entry.insert(0, path_selected)
             self.path_entry.configure(state="disabled")
 
-    def set_window_center(self):
-        window_height = 250
-        window_width = 500
+    def set_window_center(self, width, height):
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
-
-        x = (screen_width - window_width) // 2
-        y = (screen_height - window_height) // 2
-        self.geometry(f"{window_width}x{window_height}+{x}+{y}")
+        x = (screen_width - width) // 2
+        y = (screen_height - height) // 2
+        self.geometry(f"{width}x{height}+{x}+{y}")
 
 
 if __name__ == "__main__":
+    ctk.set_appearance_mode("System")
+    ctk.set_default_color_theme("blue")
     app = App()
     app.mainloop()
