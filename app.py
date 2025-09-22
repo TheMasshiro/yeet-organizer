@@ -8,6 +8,10 @@ import customtkinter as ctk
 from main import organize
 
 
+def resource_path(relative_path: str) -> str:
+    return os.path.join(os.path.dirname(sys.executable), relative_path)
+
+
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
