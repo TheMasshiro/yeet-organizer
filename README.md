@@ -35,16 +35,6 @@ pip install -r requirements.txt
 python app.py
 ```
 
-## Build with Pyinstaller
-
-Package the GUI app into a standalone executable:
-
-```bash
-pyinstaller --noconsole --icon assets/icon.ico --add-data "assets/*;assets" app.py
-```
-
-The executable will appear in the **dist** folder.
-
 ## Contributing
 
 Feel free to open an issue or submit a pull request if you have suggestions for improvements.
