@@ -56,3 +56,5 @@ env/
 *.db
 
 example/
+
+app.spec
