@@ -40,7 +40,7 @@ python app.py
 Package the GUI app into a standalone executable:
 
 ```bash
-pyinstaller --onefile --noconsole --icon assets/icon.ico --add-data "assets/*;assets" app.py
+pyinstaller --noconsole --icon assets/icon.ico --add-data "assets/*;assets" app.py
 ```
 
 The executable will appear in the **dist** folder.
