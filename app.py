@@ -58,7 +58,7 @@ class App(customtkinter.CTk):
             self.path_entry.configure(state="disabled")
 
     def set_window_center(self):
-        window_height = 600
+        window_height = 250
         window_width = 500
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
