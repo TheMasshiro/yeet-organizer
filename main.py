@@ -3,43 +3,17 @@ import shutil
 import sys
 
 
+def process(path, key, filename):
+    if not os.path.exists(os.path.join(path, key.title())):
+        os.makedirs(os.path.join(path, key.title()))
+    source = os.path.join(path, filename)
+    destination = os.path.join(path, key.title(), filename)
+    shutil.move(source, destination)
+    print(f"Moved {filename} -> {destination}")
+
+
 def organize(path, yeet_type):
     path = os.path.abspath(path)
-
-    folder_names = [
-        "Archives",
-        "Backups",
-        "Code",
-        "Configs",
-        "Databases",
-        "Documents",
-        "Ebooks",
-        "Executables",
-        "Fonts",
-        "Images",
-        "Installers",
-        "Music",
-        "PowerPoints",
-        "Publishers",
-        "Spreadsheets",
-        "Subtitles",
-        "System Files",
-        "Text Files",
-        "Videos",
-        "3D Models",
-    ]
-
-    if yeet_type == "all":
-        for folder in range(0, len(folder_names)):
-            if not os.path.exists(os.path.join(path, folder_names[folder])):
-                os.makedirs(os.path.join(path, folder_names[folder]))
-    else:
-        for folder in range(0, len(folder_names)):
-            if yeet_type not in folder_names[folder].lower():
-                continue
-
-            if not os.path.exists(os.path.join(path, folder_names[folder])):
-                os.makedirs(os.path.join(path, folder_names[folder]))
 
     filetypes = {
         "all": [],
@@ -80,30 +54,15 @@ def organize(path, yeet_type):
         "3d models": [".stl", ".obj", ".step", ".fbx", ".blend"],
     }
 
-    if yeet_type != "all":
-        for key in filetypes.keys():
-            if key != yeet_type:
+    for filename in os.listdir(path):
+        for key, extensions in filetypes.items():
+            if yeet_type != "all" and yeet_type != key:
                 continue
 
-            for filename in os.listdir(path):
-                for value in filetypes[key]:
-                    if filename.lower().endswith(value):
-                        source = os.path.join(path, filename)
-                        destination = os.path.join(path, key.title(), filename)
-                        shutil.move(source, destination)
-                        print(f"Moved {filename} -> {destination}")
-    else:
-        for filename in os.listdir(path):
-            for key, extensions in filetypes.items():
-                for value in extensions:
-                    if filename.lower().endswith(value):
-                        source = os.path.join(path, filename)
-                        destination = os.path.join(path, key.title(), filename)
-                        shutil.move(source, destination)
-                        print(f"Moved {filename} -> {destination}")
-                        break
-
-    sys.exit(0)
+            for value in extensions:
+                if filename.lower().endswith(value):
+                    process(path, key, filename)
+                    break
 
 
 if __name__ == "__main__":
@@ -154,3 +113,4 @@ if __name__ == "__main__":
         print(f"Available types: {', '.join(yeet_types)}")
         sys.exit(1)
     organize(path, yeet_type)
+    sys.exit(0)
