@@ -3,6 +3,11 @@ import shutil
 import sys
 
 
+def add_subfolder():
+    # TODO: add subfolders based on file extensions
+    pass
+
+
 def process(path, key, filename):
     if not os.path.exists(os.path.join(path, key.title())):
         os.makedirs(os.path.join(path, key.title()))
