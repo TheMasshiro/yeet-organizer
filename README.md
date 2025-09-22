@@ -12,28 +12,38 @@ It's flexible enough to work with **any folder** you specify by passing its path
 - Automatically sorts files into folders like **Images**, **Music**, **Videos**, etc.
 - Supports both a specific type (e.g., `images`) or **all** types at once.
 - Cross-platform support (Windows & Linux).
+- GUI interface for easy folder selection and filetype filtering.
 
-## Installation
+## Running GUI via script
 
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/TheMasshiro/yeet-organizer.git
+git clone -b yeet-gui https://github.com/TheMasshiro/yeet-organizer.git
 cd yeet-organizer
 ```
 
-2. Run the script:
+2. Install dependencies
 
 ```bash
-python main.py <path_to_folder> <type>
+pip install -r requirements.txt
 ```
 
-Example:
+3. Run the GUI
 
 ```bash
-python main.py C:/Users/John/Downloads images
-python main.py /home/john/Downloads all
+python app.py
 ```
+
+## Build with Pyinstaller
+
+Package the GUI app into a standalone executable:
+
+```bash
+pyinstaller --onefile --noconsole --icon assets/icon.ico --add-data "assets/*;assets" app.py
+```
+
+The executable will appear in the **dist** folder.
 
 ## Contributing
 
@@ -45,5 +55,5 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 
 ## Todos
 
-- [ ] Add subfolder inside each folder with specific file extensions
-- [ ] Create a GUI app
+- [ ] Add subfolders inside each folder with specific file extensions
+- [ ] Improve overall GUI
