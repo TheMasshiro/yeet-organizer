@@ -1,3 +1,5 @@
+import os
+import tkinter
 from tkinter import filedialog, messagebox
 
 import customtkinter as ctk
@@ -12,6 +14,17 @@ class App(ctk.CTk):
         self.title("Yeet Organizer")
         self.set_window_center(450, 220)
         self.resizable(False, False)
+        ctk.set_appearance_mode("light")
+
+        self.after(
+            201,
+            lambda: self.iconphoto(
+                True,
+                tkinter.PhotoImage(
+                    file=os.path.join(os.getcwd(), "assets", "icon.png")
+                ),
+            ),
+        )
 
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=1)
