@@ -35,6 +35,41 @@ pip install -r requirements.txt
 python app.py
 ```
 
+## Building an Executable with PyInstaller
+
+1. Clone this repository:
+
+```bash
+git clone -b yeet-gui https://github.com/TheMasshiro/yeet-organizer.git
+cd yeet-organizer
+```
+
+`You can skip this step if you've already cloned the repo.`
+
+2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+`You can skip this step if you've already installed the dependencies.`
+
+3. Package the GUI app into an executable:
+
+Windows:
+
+```bash
+pyinstaller --onedir --clean --noconsole --icon assets/icon.ico --add-data "assets/*;assets" app.py
+```
+
+Linux:
+
+```bash
+pyinstaller --onedir --clean --noconsole --icon assets/icon.ico --add-data "assets/*:assets" app.py
+```
+
+The executable will appear in the **dist** folder.
+
 ## Contributing
 
 Feel free to open an issue or submit a pull request if you have suggestions for improvements.
