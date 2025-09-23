@@ -3,11 +3,18 @@ import shutil
 import sys
 
 
-def process(path, key, filename):
-    if not os.path.exists(os.path.join(path, key.title())):
-        os.makedirs(os.path.join(path, key.title()))
+def process(path, key, extension, filename):
+    full_path = os.path.join(path, key.title())
+    extension_clean = extension.replace(".", "")
+
+    if not filename.lower().endswith(extension):
+        return
+
+    if not os.path.exists(os.path.join(full_path, extension_clean)):
+        os.makedirs(os.path.join(full_path, extension_clean))
+
     source = os.path.join(path, filename)
-    destination = os.path.join(path, key.title(), filename)
+    destination = os.path.join(full_path, extension_clean, filename)
     shutil.move(source, destination)
     print(f"Moved {filename} -> {destination}")
 
@@ -61,7 +68,7 @@ def organize(path, yeet_type):
 
             for value in extensions:
                 if filename.lower().endswith(value):
-                    process(path, key, filename)
+                    process(path, key, value, filename)
                     break
 
 
