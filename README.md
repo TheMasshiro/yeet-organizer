@@ -7,6 +7,8 @@ A simple Python CLI tool to sort files into categorized folders based on file ty
 My friend and I had really messy Download folders, so I built this tool to automatically organize them.  
 It's flexible enough to work with **any folder** you specify by passing its path as an argument.
 
+[Prefer a GUI version? Check out the GUI branch here.](https://github.com/TheMasshiro/yeet-organizer/tree/yeet-gui)
+
 ## Features
 
 - Automatically sorts files into folders like **Images**, **Music**, **Videos**, etc.
