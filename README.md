@@ -45,5 +45,5 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 
 ## Todos
 
-- [ ] Add subfolders inside each folder with specific file extensions
+- [x] ~~Add subfolders inside each folder with specific file extensions~~
 - [ ] Improve overall GUI
