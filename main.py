@@ -97,27 +97,85 @@ if __name__ == "__main__":
         "3d models",
     ]
 
-    if len(sys.argv) < 4:
-        print("Usage: yeet <path> <type>")
-        print(f"Available types: {', '.join(yeet_types)}")
-        sys.exit(1)
-
     cmd = sys.argv[1]
     if cmd.lower() != "yeet":
-        print("Error: first argument must be 'yeet'")
-        print("Usage: yeet <path> <type>")
+        print(
+            """
+Error:
+    First argument must be 'yeet'
+
+Tip:
+    Use 'yeet -h' or 'yeet --help' for usage information
+    """
+        )
+        sys.exit(1)
+
+    if "-h" in sys.argv or "--help" in sys.argv:
+        print(
+            f"""
+Yeet File Organizer
+-------------------
+Usage:
+    yeet <path> <type>
+
+Available types:
+    {', '.join(yeet_types)}
+
+Example:
+    yeet C:/Users/John/Downloads images
+
+Tip:
+    You can use '-h' or '--help' anytime to see this message
+    """
+        )
+        sys.exit(0)
+
+    if len(sys.argv) < 4:
+        print(
+            f"""
+Error:
+    Missing path or type
+
+Usage:
+    yeet <path> <type>
+
+Available types:
+    {', '.join(yeet_types)}
+
+Tip:
+    Run 'yeet -h' or 'yeet --help' for more info
+    """
+        )
         sys.exit(1)
 
     path = sys.argv[2]
-    if not os.path.exists(path) and os.path.isdir(path):
-        print(f"Error: '{path}' is not a valid directory")
-        print("Usage: yeet <path> <type>")
+    if not os.path.exists(path) or not os.path.isdir(path):
+        print(
+            f"""
+Error:
+    '{path}' is not a valid directory
+
+Tip:
+    Run 'yeet -h' or 'yeet --help' for usage examples
+    """
+        )
         sys.exit(1)
 
     yeet_type = " ".join(sys.argv[3:]).lower()
     if yeet_type not in yeet_types:
-        print(f"Error: invalid type '{yeet_type}'")
-        print(f"Available types: {', '.join(yeet_types)}")
+        print(
+            f"""
+Error:
+    Invalid type '{yeet_type}'
+
+Available types:
+    {', '.join(yeet_types)}
+
+Tip:
+    Run 'yeet -h' or 'yeet --help' for more info
+    """
+        )
         sys.exit(1)
+
     organize(path, yeet_type)
     sys.exit(0)
