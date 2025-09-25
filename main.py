@@ -1,5 +1,24 @@
 import os
 import shutil
+from datetime import datetime
+
+
+def create_logs(path, key, extension, filename):
+    project_directory = os.path.dirname(os.path.abspath(__file__))
+    log_path = os.path.join(project_directory, "yeet.log")
+
+    if not os.path.exists(log_path):
+        with open(log_path, "w") as f:
+            f.write("=== Yeet File Organizer Log ===\n\n")
+
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_entry = (
+        f"[{timestamp}] "
+        f"path: {path}, key: {key}, extension: {extension}, filename: {filename}\n"
+    )
+
+    with open(log_path, "a") as f:
+        f.write(log_entry)
 
 
 def process(path, key, extension, filename):
@@ -68,4 +87,5 @@ def organize(path, yeet_type):
             for value in extensions:
                 if filename.lower().endswith(value):
                     process(path, key, value, filename)
+                    create_logs(path, key, value, filename)
                     break
