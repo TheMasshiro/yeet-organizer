@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 def create_logs(path, key, extension, filename):
-    project_directory = os.path.dirname(os.path.abspath(__file__))
+    project_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     log_path = os.path.join(project_directory, "yeet.log")
 
     if not os.path.exists(log_path):
