@@ -14,7 +14,7 @@ def create_logs(path, key, extension, filename):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_entry = (
         f"[{timestamp}] "
-        f"path: {path}, key: {key}, extension: {extension}, filename: {filename}\n"
+        f"directory: {path}, type: {key}, extension: {extension}, filename: {filename}\n"
     )
 
     with open(log_path, "a") as f:
